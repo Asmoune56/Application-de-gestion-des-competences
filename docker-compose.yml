@@ -1,0 +1,36 @@
+services:
+
+  app:
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: competence-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_competences?createIfNotExists=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - app
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_competences
+    ports:
+      - "3306:3306"
+    networks:
+      - app
+    volumes:
+      - db_data:/var/lib/mysql
+networks:
+  app:
+    driver: bridge
+volumes:
+  db_data:

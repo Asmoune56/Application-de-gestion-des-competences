@@ -14,15 +14,40 @@ public class SousCompetence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nom;
-
-    private String description;
-
-    private boolean validee;
+    private boolean estValidee;
 
     @ManyToOne
-    @JoinColumn(name = "competence_id")
     private Competence competence;
+
+    // Getters
+    public Long getId() {
+        return id;
+    }
+    public String getNom() {
+        return nom;
+    }
+    public boolean isEstValidee() {
+        return estValidee;
+    }
+    public Competence getCompetence() {
+        return competence;
+    }
+
+    // Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+    public void setEstValidee(boolean estValidee) {
+        this.estValidee = estValidee;
+    }
+    public void setCompetence(Competence competence) {
+        this.competence = competence;
+    }
 }
+
+
 

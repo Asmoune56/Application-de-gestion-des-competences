@@ -1,49 +1,43 @@
 package com.gestioncompetences.competence_tracker.Controllers;
 
+
 import com.gestioncompetences.competence_tracker.Services.CompetenceService;
+import com.gestioncompetences.competence_tracker.dto.CompetenceDTO;
 import com.gestioncompetences.competence_tracker.entities.Competence;
+import com.gestioncompetences.competence_tracker.mapper.CompetenceMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/competences")
 @RequiredArgsConstructor
 public class CompetenceController {
-
     private final CompetenceService competenceService;
 
-    // 🔥 Ajouter une compétence
     @PostMapping
-    public ResponseEntity<Competence> create(@RequestBody Competence competence) {
-        return ResponseEntity.ok(competenceService.save(competence));
+    public CompetenceDTO createcompetence(@RequestBody CompetenceDTO competenceDTO) {
+        return competenceService.createCompetence(competenceDTO);
     }
 
-    // 🔍 Lister toutes les compétences
     @GetMapping
-    public ResponseEntity<List<Competence>> getAll() {
-        return ResponseEntity.ok(competenceService.getAll());
+public List<CompetenceDTO> getAllCompetences() {
+        return competenceService.getAllCompetences();
     }
 
-    // 📝 Modifier une compétence
+    @GetMapping("/{id}")
+    public CompetenceDTO getCompetenceById(@PathVariable Long id) {
+        return competenceService.getCompetenceById(id);
+    }
     @PutMapping("/{id}")
-    public ResponseEntity<Competence> update(@PathVariable Long id, @RequestBody Competence competence) {
-        competence.setId(id);
-        return ResponseEntity.ok(competenceService.save(competence));
+    public CompetenceDTO updateCompetence(@PathVariable Long id, @RequestBody CompetenceDTO competenceDTO) {
+        return competenceService.updateCompetence(id, competenceDTO);
     }
 
-    // 🗑 Supprimer une compétence
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         competenceService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/export")
-    public ResponseEntity<List<Competence>> export() {
-        return ResponseEntity.ok(competenceService.getAll());
     }
 }
-
