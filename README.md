@@ -1,4 +1,4 @@
-# * Gestion des Compétences *
+#  ** Gestion des Compétences *
 
 Cette application est une plateforme de **gestion des compétences et sous-compétences** des apprenants.  
 Elle permet aux responsables pédagogiques de :
